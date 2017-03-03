@@ -28,8 +28,9 @@ def test_pitchdata_file_checksum():
 
 def test_output_file_checksum():
     """Verify that the output file's checksum matches the reference file's."""
-    path = os.path.join(python_hiring_test.PROCESSED, 'output.csv')
-    assert md5sum(path) == b'4a8d57410dd6503fe02424597248c1b6'
+    outpath = os.path.join(python_hiring_test.PROCESSED, 'output.csv')
+    refpath = os.path.join(python_hiring_test.REFERENCE, 'output.csv')
+    assert md5sum(outpath) == md5sum(refpath)
 
 
 def test_output_time():
