@@ -31,7 +31,9 @@ def valid_checksums():
 def test_pitchdata_file_checksum():
     """Verify that the pitchdata file is complete and not corrupt."""
     path = os.path.join(python_hiring_test.RAW, 'pitchdata.csv')
-    assert md5sum(path) == b'491002353654ad834b21a3bd77915b4a'
+    valid_pd_checksums = [b'491002353654ad834b21a3bd77915b4a',
+                          b'02bd82a963836dd2cb384401956b9275']
+    assert md5sum(path) in valid_pd_checksums
 
 
 def test_reference_file_checksum(valid_checksums):
