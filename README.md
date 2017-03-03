@@ -21,16 +21,18 @@ four basic stats to be calculated that should be familiar to any baseball fan.
 3. Modify run.py to perform the following steps when called via `python run.py`:
     1. Read in `./data/raw/pitchdata.csv`
     2. Perform grouping/aggregations of each combination from  
-    `./data/reference/combinations.txt`
+    `./data/reference/combinations.txt` to create tables/dataframes.
     3. Round the stat to a max of three decimal places.
     4. Only include subjects with PA >= 25.
-    5. Output to a csv file with the following columns:
+    5. Combine each individual table/dataframe into a single one with the  
+    following column headers:
         * SubjectId _(e.g. 108, 119, etc)_
         * Stat _(e.g. the name of the stat "AVG", "OBP", etc.)_
         * Split _(e.g. "vs LHP", "vs RHH", etc.)_
         * Subject _(e.g. "HitterId", "PitcherTeamId", etc.)_
         * Value _(e.g. the value of the Stat 0.350, 1.03, 0.5, etc)_
-    6. Sort the file on the first four columns (each in ascending order).
+    6. Sort the table/dataframe on the first four columns (each in ascending  
+    order).
     7. Save the csv to `./data/processed/output.csv`
 4. Run the test suite by opening a command-line, cd in to the repo, and running  
 the following command: ```pytest -v```
