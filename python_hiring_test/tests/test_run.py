@@ -4,6 +4,7 @@ import os
 import datetime
 import hashlib
 import binascii
+import pytest
 import python_hiring_test
 import python_hiring_test.run
 
@@ -20,17 +21,30 @@ def md5sum(path):
     return binascii.hexlify(hashfile(open(path, 'rb'), hashlib.md5()))
 
 
+@pytest.fixture(scope='session')
+def valid_checksums():
+    # windows/unix line terminators cause checksum issues. either is valid.
+    return [b'4a8d57410dd6503fe02424597248c1b6',
+            b'e3884fca15ae3399695467bd8b4790f2']
+
+
 def test_pitchdata_file_checksum():
     """Verify that the pitchdata file is complete and not corrupt."""
     path = os.path.join(python_hiring_test.RAW, 'pitchdata.csv')
     assert md5sum(path) == b'491002353654ad834b21a3bd77915b4a'
 
 
-def test_output_file_checksum():
+def test_reference_file_checksum(valid_checksums):
+    path = os.path.join(python_hiring_test.REFERENCE, 'output.csv')
+
+    assert md5sum(path) in valid_checksums
+
+
+def test_output_file_checksum(valid_checksums):
     """Verify that the output file's checksum matches the reference file's."""
-    outpath = os.path.join(python_hiring_test.PROCESSED, 'output.csv')
-    refpath = os.path.join(python_hiring_test.REFERENCE, 'output.csv')
-    assert md5sum(outpath) == md5sum(refpath)
+    path = os.path.join(python_hiring_test.PROCESSED, 'output.csv')
+
+    assert md5sum(path) in valid_checksums
 
 
 def test_output_time():
